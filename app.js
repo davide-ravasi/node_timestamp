@@ -6,12 +6,17 @@ app.get("/", function(req, res) {
 });
   
 app.get('/api/timestamp/:date_string', function(req, res) {
-  const dateString = req.params.date_string;
-  const formattedDate = new Date(dateString);
-  const unixDate = Date.parse(formattedDate);
-  console.log("unix date" + Date.parse(formattedDate));
-  res.send(formattedDate);
-  //res.send(unixDate);
+  let dateString = req.params.date_string;
+  let formattedDate = new Date(dateString);
+  let unixDate = Date.parse(formattedDate).toString();
+  let response = "";
+  if(new Date(dateString) == 'Invalid Date') {
+    response = "Invalid Date";
+  } else {
+    response = unixDate;
+  }
+  //res.send(formattedDate);
+  res.send(response);
 })  
 
 app.listen(3000, function() {
