@@ -6,7 +6,12 @@ app.get("/", function(req, res) {
 });
   
 app.get('/api/timestamp/:date_string', function(req, res) {
-  console.log(req.params.date_string);
+  const dateString = req.params.date_string;
+  const formattedDate = new Date(dateString);
+  const unixDate = Date.parse(formattedDate);
+  console.log("unix date" + Date.parse(formattedDate));
+  res.send(formattedDate);
+  //res.send(unixDate);
 })  
 
 app.listen(3000, function() {
