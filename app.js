@@ -13,7 +13,10 @@ app.get('/api/timestamp/:date_string', function(req, res) {
   console.log(/^\d*$/.test(req.params.date_string));
   if(new Date(dateString) == 'Invalid Date') {
     response = "Invalid Date";
-  } else {
+    res.json({"error" : "Invalid Date" })
+  } else if(dateString == '') {
+    res.json()
+  } else {  
     response = unixDate;
   }
   //res.send(formattedDate);
