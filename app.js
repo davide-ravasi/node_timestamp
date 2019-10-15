@@ -21,15 +21,9 @@ app.get('/api/timestamp/:date_string', function(req, res) {
   if(new Date(dateString) == 'Invalid Date') {
     response = "Invalid Date";
     res.json({"error" : "Invalid Date" })
-  } else if(req.param('date_string') === '') {
-    let newDate = new Date();
-    let newUnixDate = Date.parse(newDate).toString();
-    res.json({"unix": newUnixDate, "utc" : newDate })
   } else {  
     res.json({"unix": unixDate, "utc" : formattedDate });
   }
-  //res.send(formattedDate);
-  //res.send(response);
 })  
 
 app.listen(3000, function() {
