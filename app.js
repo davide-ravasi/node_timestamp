@@ -14,24 +14,20 @@ app.get('/api/timestamp/:date_string', function(req, res) {
     var response = "Invalid Date";
     res.json({"error" : "Invalid Date" })
   } else {
+    let unixDate = '';
+    let formattedDate = '';
     if(dateString.indexOf("-") == -1) {
+      unixDate = dateString;
       let a = new Date(dateString * 1000);
-      let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-      let year = a.getFullYear();
-      var month = months[a.getMonth()];
-      let date = a.getDate();
-      let hour = a.getHours();
-      let min = a.getMinutes();
-      let sec = a.getSeconds();
-      let time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
-      res.json({"unix": dateString, "utc" : time});
+      formattedDate = a.toUTCString();
     } else {
-      let formattedDate = new Date(dateString);
-      let unixDate = Date.parse(formattedDate);
-      res.json({"unix": unixDate, "utc" : formattedDate});
+      let a = new Date(dateString);
+      formattedDate = a.toUTCString();
+      unixDate = Date.parse(formattedDate);
+      
     }
     
-    //res.json({"unix": dateString, "utc" : time});
+    res.json({"unix": unixDate, "utc" : formattedDate});
   }
 })  
 
