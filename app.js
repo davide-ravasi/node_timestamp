@@ -13,7 +13,7 @@ app.get('/api/timestamp/:date_string', function(req, res) {
   if(isNaN(Date.parse(dateString)) == true && new Date(dateString*1000) == "Invalid Date") {
     var response = "Invalid Date";
     res.json({"error" : "Invalid Date" })
-  } else {  
+  } else {
     if(dateString.indexOf("-") == -1) {
       let a = new Date(dateString * 1000);
       let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -31,7 +31,7 @@ app.get('/api/timestamp/:date_string', function(req, res) {
       res.json({"unix": unixDate, "utc" : formattedDate});
     }
     
-    res.json({"unix": dateString, "utc" : time});
+    //res.json({"unix": dateString, "utc" : time});
   }
 })  
 
