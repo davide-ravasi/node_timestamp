@@ -13,13 +13,8 @@ app.get('/api/timestamp/', function(req,res) {
   
 app.get('/api/timestamp/:date_string', function(req, res) {
   let dateString = req.params.date_string;
-  let formattedDate = new Date(dateString);
-  let unixDate = Date.parse(formattedDate);
-
-  //res.json({"unix": unixDate, "utc" : formattedDate, "type": typeof dateString, "typeDate": dateString.indexOf("-")});
   
-  
-  if(isNaN(Date.parse(dateString)) == true) {
+  if(isNaN(Date.parse(dateString)) == true && new Date(dateString*1000) == "Invalid Date") {
     var response = "Invalid Date";
     res.json({"error" : "Invalid Date" })
   } else {  
@@ -35,10 +30,10 @@ app.get('/api/timestamp/:date_string', function(req, res) {
       var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
       res.json({"unix": dateString, "utc" : formattedTime, "unixdate": "true" });
     } else {
+      let formattedDate = new Date(dateString);
+      let unixDate = Date.parse(formattedDate);
       res.json({"unix": unixDate, "utc" : formattedDate, "unixdate": "false" });
     }
-    
-    
   }
 })  
 
