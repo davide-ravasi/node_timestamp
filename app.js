@@ -1,10 +1,6 @@
 var express = require("express");
 var app = express();
 
-app.get("/", function(req, res) {
-  res.send("Hello World!");
-});
-
 app.get('/api/timestamp/', function(req,res) {
     let newDate = new Date();
     let newUnixDate = Date.parse(newDate).toString();
@@ -19,20 +15,20 @@ app.get('/api/timestamp/:date_string', function(req, res) {
     res.json({"error" : "Invalid Date" })
   } else {  
     if(dateString.indexOf("-") == -1) {
-      var date = new Date(dateString*1000);
-      // Hours part from the timestamp
-      var hours = date.getHours();
-      // Minutes part from the timestamp
-      var minutes = "0" + date.getMinutes();
-      // Seconds part from the timestamp
-      var seconds = "0" + date.getSeconds();
-      // Will display time in 10:30:23 format
-      var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-      res.json({"unix": dateString, "utc" : formattedTime, "unixdate": "true" });
+      var a = new Date(dateString * 1000);
+      var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      var year = a.getFullYear();
+      var month = months[a.getMonth()];
+      var date = a.getDate();
+      var hour = a.getHours();
+      var min = a.getMinutes();
+      var sec = a.getSeconds();
+      var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+      res.json({"unix": dateString, "utc" : time});
     } else {
       let formattedDate = new Date(dateString);
       let unixDate = Date.parse(formattedDate);
-      res.json({"unix": unixDate, "utc" : formattedDate, "unixdate": "false" });
+      res.json({"unix": unixDate, "utc" : formattedDate});
     }
   }
 })  
