@@ -16,6 +16,7 @@ app.get('/api/timestamp/:date_string', function(req, res) {
   } else {
     let unixDate = '';
     let formattedDate = '';
+    
     if(dateString.indexOf("-") == -1) {
       unixDate = dateString;
       let a = new Date(dateString * 1000);
@@ -23,7 +24,7 @@ app.get('/api/timestamp/:date_string', function(req, res) {
     } else {
       let a = new Date(dateString);
       formattedDate = a.toUTCString();
-      unixDate = Date.parse(formattedDate);
+      unixDate = a.getTime();
       
     }
     
