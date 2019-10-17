@@ -24,7 +24,7 @@ app.get('/api/timestamp/:date_string', function(req, res) {
     } else {
       let a = new Date(dateString);
       formattedDate = a.toUTCString();
-      unixDate = a.getTime();
+      unixDate = a.getTime()/1000;
       
     }
     
